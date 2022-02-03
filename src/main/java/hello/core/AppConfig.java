@@ -14,19 +14,39 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AppConfig {
 
+    // @Bean memberService -> new MemoryMemberRepository()
+    // @Bean orderService -> new MemoryMemberRepository()
+
+    // 예상
+    // call AppConfig.memberService
+    // call AppConfig.memberRepository
+    // call AppConfig.memberRepository
+    // call AppConfig.orderService
+    // call AppConfig.memberRepository
+
+    // 실제 -> SpringContainer가 singleton을 보장하기 때문
+    // call AppConfig.memberService
+    // call AppConfig.memberRepository
+    // call AppConfig.orderService
+
     @Bean
     public MemberService memberService() {
+        // 1번
+        System.out.println("-- call AppConfig.memberService");
         return new MemberServiceImpl(memberRepository()); // 생성자 주입!
     }
 
     @Bean
-    public MemberRepository memberRepository() {
-        return new MemoryMemberRepository();
+    public OrderService orderService() {
+        // 1번
+        System.out.println("-- call AppConfig.orderService");
+        return new OrderServiceImpl(memberRepository(), discountPolicy());
     }
 
     @Bean
-    public OrderService orderService() {
-        return new OrderServiceImpl(memberRepository(), discountPolicy());
+    public MemberRepository memberRepository() {
+        System.out.println("-- AppConfig.memberRepository");
+        return new MemoryMemberRepository();
     }
 
     @Bean
