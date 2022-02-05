@@ -1,5 +1,9 @@
 package hello.core.member;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
 // interface에 대한 구현체가 하나면 구현체 되에 Impl이라는 접미사를 붙이는게 관례
 public class MemberServiceImpl implements MemberService {
 
@@ -10,6 +14,7 @@ public class MemberServiceImpl implements MemberService {
         return memberRepository;
     }
 
+    @Autowired
     /** 추상*/
     public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
