@@ -8,27 +8,27 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrderServiceImpl implements OrderService {
 
-    private MemberRepository memberRepository;
-    private DiscountPolicy discountPolicy;
+    private final MemberRepository memberRepository;
+    private final DiscountPolicy discountPolicy;
 
     @Autowired
-    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy1) {
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         System.out.println("1. Constructor");
         this.memberRepository = memberRepository;
-        this.discountPolicy = discountPolicy1;
-    }
-
-    @Autowired
-    public void setMemberRepository(MemberRepository memberRepository) {
-        System.out.println("2. setMemberRepository");
-        this.memberRepository = memberRepository;
-    }
-
-    @Autowired
-    public void setDiscountPolicy(DiscountPolicy discountPolicy) {
-        System.out.println("3. setDiscountPolicy");
         this.discountPolicy = discountPolicy;
     }
+
+//    @Autowired
+//    public void setMemberRepository(MemberRepository memberRepository) {
+//        System.out.println("2. setMemberRepository");
+//        this.memberRepository = memberRepository;
+//    }
+//
+//    @Autowired
+//    public void setDiscountPolicy(DiscountPolicy discountPolicy) {
+//        System.out.println("3. setDiscountPolicy");
+//        this.discountPolicy = discountPolicy;
+//    }
 
     /** 구현체인 FixDiscountPolicy와 RateDiscountPolicy에 의존하고 있음! -> DIP 원칙 위반!!!!
      * interface인 DiscountPlicy에 의존은 하지만, 위와 같은 문제가 있다    * */
