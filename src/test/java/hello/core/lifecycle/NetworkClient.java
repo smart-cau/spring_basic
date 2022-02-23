@@ -1,5 +1,6 @@
 package hello.core.lifecycle;
-
+import javax.annotation.PostConstruct; // javax -> spring 뿐만 아니라, java 공식 지원임을 의미
+import javax.annotation.PreDestroy;
 
 public class NetworkClient {
     private String url;
@@ -25,11 +26,13 @@ public class NetworkClient {
         System.out.println("close: " + url);
     }
 
+    @PostConstruct
     public void init() throws Exception {
         connect();
         call("초기화 연결 메세지");
     }
 
+    @PreDestroy
     public void close() throws Exception {
         disconnect();
     }
